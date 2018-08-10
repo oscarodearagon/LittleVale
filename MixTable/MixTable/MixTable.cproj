@@ -20,25 +20,25 @@
     <OverrideVtor>false</OverrideVtor>
     <CacheFlash>true</CacheFlash>
     <ProgFlashFromRam>true</ProgFlashFromRam>
-    <RamSnippetAddress />
+    <RamSnippetAddress>0x20000000</RamSnippetAddress>
     <UncachedRange />
     <preserveEEPROM>true</preserveEEPROM>
-    <OverrideVtorValue />
+    <OverrideVtorValue>exception_table</OverrideVtorValue>
     <BootSegment>2</BootSegment>
     <ResetRule>0</ResetRule>
     <eraseonlaunchrule>0</eraseonlaunchrule>
     <EraseKey />
     <AsfFrameworkConfig>
       <framework-data xmlns="">
-  <options />
-  <configurations />
-  <files />
-  <documentation help="" />
-  <offline-documentation help="" />
-  <dependencies>
-    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.35.1" />
-  </dependencies>
-</framework-data>
+        <options />
+        <configurations />
+        <files />
+        <documentation help="" />
+        <offline-documentation help="" />
+        <dependencies>
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.35.1" />
+        </dependencies>
+      </framework-data>
     </AsfFrameworkConfig>
     <GpdscFilePath>.atmelstart\AtmelStart.gpdsc</GpdscFilePath>
     <atStartFilePath>.atmelstart\atmel_start_config.atstart</atStartFilePath>
@@ -299,6 +299,10 @@
       <Value>../hpl/sercom</Value>
       <Value>../hpl/sysctrl</Value>
       <Value>../hri</Value>
+      <Value>../Timer</Value>
+      <Value>../LogDebug</Value>
+      <Value>../MiniGauss</Value>
+      <Value>../Sensor</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.level>Optimize (-O1)</armgcc.compiler.optimization.level>
@@ -317,6 +321,7 @@
     </ListValues>
   </armgcc.linker.libraries.LibrarySearchPaths>
   <armgcc.linker.optimization.GarbageCollectUnusedSections>True</armgcc.linker.optimization.GarbageCollectUnusedSections>
+  <armgcc.linker.memorysettings.ExternalRAM />
   <armgcc.linker.miscellaneous.LinkerFlags>-Tsamd10d14am_flash.ld</armgcc.linker.miscellaneous.LinkerFlags>
   <armgcc.assembler.general.IncludePaths>
     <ListValues>
@@ -726,7 +731,34 @@
     <Compile Include="hri\hri_wdt_d10.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="LogDebug\logdebug.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="LogDebug\logdebug.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MiniGauss\minigauss.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MiniGauss\minigauss.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MiniGauss\minigauss_cfg.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Sensor\sensor.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Sensor\sensor.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Timer\timer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Timer\timer.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
@@ -751,6 +783,10 @@
     <Folder Include="hpl\sercom\" />
     <Folder Include="hpl\sysctrl\" />
     <Folder Include="hri\" />
+    <Folder Include="MiniGauss" />
+    <Folder Include="LogDebug" />
+    <Folder Include="Timer" />
+    <Folder Include="Sensor" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Device_Startup\samd10d14am_flash.ld">

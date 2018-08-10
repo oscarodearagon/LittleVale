@@ -16,4 +16,5 @@ void SENSOR_vInit(void)
 void SENSOR_vReadDevice(void)
 {
 	MINIGAUSS_vReadDevice();
+
 }

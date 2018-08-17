@@ -66,23 +66,14 @@ void MINIGAUSS_vSetGpioOutputs(uint8_t u8Value)
 	
 	if(u8Value & 0x01)
 	{
-		gpio_set_pin_level(MINIGAUSS_u8DIGITAL_OUTPUT_0, true);
+		gpio_set_pin_level(MINIGAUSS_u8DIGITAL_OUTPUT_3, true);
 	}
 	else
 	{
-		gpio_set_pin_level(MINIGAUSS_u8DIGITAL_OUTPUT_0, false);
+		gpio_set_pin_level(MINIGAUSS_u8DIGITAL_OUTPUT_3, false);
 	}
 	
 	if(u8Value & 0x02)
-	{
-		gpio_set_pin_level(MINIGAUSS_u8DIGITAL_OUTPUT_1, true);
-	}
-	else
-	{
-		gpio_set_pin_level(MINIGAUSS_u8DIGITAL_OUTPUT_1, false);
-	}
-	
-	if(u8Value & 0x04)
 	{
 		gpio_set_pin_level(MINIGAUSS_u8DIGITAL_OUTPUT_2, true);
 	}
@@ -91,13 +82,22 @@ void MINIGAUSS_vSetGpioOutputs(uint8_t u8Value)
 		gpio_set_pin_level(MINIGAUSS_u8DIGITAL_OUTPUT_2, false);
 	}
 	
-	if(u8Value & 0x08)
+	if(u8Value & 0x04)
 	{
-		gpio_set_pin_level(MINIGAUSS_u8DIGITAL_OUTPUT_3, true);
+		gpio_set_pin_level(MINIGAUSS_u8DIGITAL_OUTPUT_1, true);
 	}
 	else
 	{
-		gpio_set_pin_level(MINIGAUSS_u8DIGITAL_OUTPUT_3, false);
+		gpio_set_pin_level(MINIGAUSS_u8DIGITAL_OUTPUT_1, false);
+	}
+	
+	if(u8Value & 0x08)
+	{
+		gpio_set_pin_level(MINIGAUSS_u8DIGITAL_OUTPUT_0, true);
+	}
+	else
+	{
+		gpio_set_pin_level(MINIGAUSS_u8DIGITAL_OUTPUT_0, false);
 	}
 }
 

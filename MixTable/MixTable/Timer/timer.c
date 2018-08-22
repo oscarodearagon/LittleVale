@@ -20,12 +20,20 @@ static void TIMER_0_task1_cb(const struct timer_task *const timer_task)
 
 static void TIMER_0_task2_cb(const struct timer_task *const timer_task)
 {
-	//SENSOR_vReadDevice();
+	uint8_t *pu8Data = NULL;
+	
+	pu8Data = SENSOR_pu8ReadDevice();
+	
+	/* Send values through serial port */
+	//SENSOR_vSendValues();
+	
+	/* Calculate Centroid */
+	IMAGETESTING_vCentroidFromSensor(pu8Data);
 	
 	/* Image testing */
 	//IMAGETESTING_vSubstractConstant();
 	//IMAGETESTING_vBinaryData();
-	IMAGETESTING_vCentroid();
+	//IMAGETESTING_vCentroid();
 }
 
 void TIMER_vInit(void)

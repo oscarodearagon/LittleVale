@@ -20,8 +20,12 @@
 
 #if  (MINIGAUSS_stDEVICE_TYPE==Basic)
 #define MINIGAUSS_u8SENSOR_QUANTITY		(1)
+#define MINIGAUSS_nCOLUMNS				(4)
+#define MINIGAUSS_nROWS					(4)
 #else
 #define MINIGAUSS_u8SENSOR_QUANTITY		(4)
+#define MINIGAUSS_nCOLUMNS				(8)
+#define MINIGAUSS_nROWS					(8)
 #endif
 
 /* GPIO OUTPUTS */

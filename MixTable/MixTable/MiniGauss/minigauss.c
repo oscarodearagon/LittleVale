@@ -31,13 +31,12 @@ void MINIGAUSS_vInit(void)
 	gpio_set_pin_pull_mode(MINIGAUSS_u8DIGITAL_OUTPUT_3, GPIO_PULL_UP);
 }
 
-void MINIGAUSS_vReadDevice(void)
+void MINIGAUSS_vReadDevice(uint8_t *pu8Storage)
 {
-	MINIGAUSS_vSaveAdcValues();
-	MINIGAUSS_vSendAdcValues();
+	MINIGAUSS_vSaveAdcValues(pu8Storage);
 }
 
-void MINIGAUSS_vSaveAdcValues(void)
+void MINIGAUSS_vSaveAdcValues(uint8_t *pu8Storage)
 {
 	uint8_t u8AdcValue = 0;
 	
@@ -52,13 +51,8 @@ void MINIGAUSS_vSaveAdcValues(void)
 		MINIGAUSS_vReadAdcValues(&u8AdcValue);
 		
 		/* Assign Value to array */
-		MINIGAUSS_vAssignAdcValue(&u8AdcValue, u8Counter);
+		*(pu8Storage+u8Counter) = u8AdcValue;
 	}
-}
-
-void MINIGAUSS_vProcess(void)
-{
-	
 }
 
 void MINIGAUSS_vSetGpioOutputs(uint8_t u8Value)
@@ -119,11 +113,4 @@ void MINIGAUSS_vReadAdcValues(uint8_t *pu8Values)
 void MINIGAUSS_vAssignAdcValue(uint8_t *pu8AdcRead, uint8_t u8Index)
 {
 	au8AdcValues[u8Index] = *pu8AdcRead;
-}
-
-void MINIGAUSS_vSendAdcValues(void)
-{
-	uint8_t au8Header[] = {0x00, 0xFF, 0x00};
-	LOGDEBUG_vSendData(au8Header, 3);
-	LOGDEBUG_vSendData(au8AdcValues, MINIGAUSS_u8INPUTS_PER_SENSOR);
 }

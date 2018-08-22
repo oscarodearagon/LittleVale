@@ -17,21 +17,15 @@ extern "C" {
 
 	void MINIGAUSS_vInit(void);
 	
-	void MINIGAUSS_vReadDevice(void);
+	void MINIGAUSS_vReadDevice(uint8_t *pu8Storage);
 	
-	void MINIGAUSS_vSaveAdcValues(void);
-	
-	void MINIGAUSS_vProcess(void);
+	void MINIGAUSS_vSaveAdcValues(uint8_t *pu8Storage);
 	
 	void MINIGAUSS_vSetGpioOutputs(uint8_t u8Value);
 	
 	void MINIGAUSS_vDelay(uint8_t u8Loops);
 	
 	void MINIGAUSS_vReadAdcValues(uint8_t *pu8Values);
-	
-	void MINIGAUSS_vAssignAdcValue(uint8_t *pu8AdcRead, uint8_t u8Index);
-	
-	void MINIGAUSS_vSendAdcValues(void);
 
 #ifdef __cplusplus
 }

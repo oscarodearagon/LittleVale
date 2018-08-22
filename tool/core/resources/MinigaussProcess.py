@@ -2,8 +2,8 @@ import math
 
 class MinigaussProcess:
 
-    # Stable average 0x8E
-    STABLE_AVERAGE = 142
+    # Stable average
+    STABLE_AVERAGE = 190
 
     TOLERANCE = 8
     DATA_LENGTH = 16
@@ -33,7 +33,6 @@ class MinigaussProcess:
 
     def process_data(self, data):
         result = False
-        position = [0, 0]
 
         self.__adapt_data(data)
         self.__print_list()
@@ -43,7 +42,7 @@ class MinigaussProcess:
         # This function must be implemented in the embedded side
         self.__process_data()
 
-        return result, position
+        return result
 
     def calibration(self, data):
         status = False
@@ -68,8 +67,8 @@ class MinigaussProcess:
         return x, y
 
     def __process_data(self):
-        #self.__remove_average()
-        self.__remove_calibration()
+        self.__remove_average()
+        #self.__remove_calibration()
         self.__print_list()
 
         self.__binary_list()

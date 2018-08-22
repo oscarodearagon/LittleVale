@@ -21,4 +21,8 @@ void IMAGETESTING_vBinaryData(void);
 
 void IMAGETESTING_vCentroid(void);
 
+void IMAGETESTING_vCentroidFromSensor(uint8_t *pu8Source);
+
+void IMAGETESTING_vSendCoordinates(uint8_t u8XAxis, uint8_t u8YAxis);
+
 #endif /* IMAGETESTING_H_ */

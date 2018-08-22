@@ -7,7 +7,7 @@ from core.resources.PlotData import PlotData
 
 # Constants
 WAIT_TIME_SECONDS = 5
-TESTING_TIME_SECONDS = 1
+TESTING_TIME_SECONDS = 60
 
 # Initializations
 serialConnection = SerialCom()
@@ -17,21 +17,21 @@ chart = PlotData()
 # Open serial connection
 serialConnection.open()
 
-# Calibration
-calibration_status = False
-while calibration_status is False:
-    result, data = serialConnection.read_block()
-    if result is True:
-        calibration_status = minigauss.calibration(data)
-    else:
-        print("[Main] Block was not read correctly in Calibration stage")
-
-print("[Main] Finish Calibration stage")
-
-time_out = time.time() + WAIT_TIME_SECONDS
-while time_out > time.time():
-    # Read block
-    result, data = serialConnection.read_block()
+# # Calibration
+# calibration_status = False
+# while calibration_status is False:
+#     result, data = serialConnection.read_block()
+#     if result is True:
+#         calibration_status = minigauss.calibration(data)
+#     else:
+#         print("[Main] Block was not read correctly in Calibration stage")
+#
+# print("[Main] Finish Calibration stage")
+#
+# time_out = time.time() + WAIT_TIME_SECONDS
+# while time_out > time.time():
+#     # Read block
+#     result, data = serialConnection.read_block()
 
 print("[Main] Start Processing")
 
@@ -45,7 +45,7 @@ while time_out > time.time():
         # print(data)
 
         # Start data processing
-        result, position = minigauss.process_data(data)
+        result = minigauss.process_data(data)
 
         # Plot position
         x_value, y_value = minigauss.get_coordinates()

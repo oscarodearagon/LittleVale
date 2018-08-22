@@ -7,6 +7,7 @@
 
 #include <imagetesting.h>
 #include <imagecalculations.h>
+#include <logdebug.h>
 
 #define IMAGETESTING_nArrayEntries		5
 #define IMAGETESTING_nEntryLength		16
@@ -116,4 +117,30 @@ void IMAGETESTING_vCentroid(void)
 	IMAGECALCULATIONS_vBinaryImage(au8Binary);
 	
 	boResult = IMAGECALCULATIONS_boGetCentroid(au8Binary, &u8XAxis, &u8YAxis);
+}
+
+void IMAGETESTING_vCentroidFromSensor(uint8_t *pu8Source)
+{
+	uint8_t au8Binary[IMAGETESTING_nEntryLength];
+	uint8_t u8XAxis = 0;
+	uint8_t u8YAxis = 0;
+	bool boResult = false;
+	
+	IMAGETESTING_vCopyArrays(pu8Source, au8Binary, IMAGETESTING_nEntryLength);
+	
+	IMAGECALCULATIONS_vSubtractConstant(au8Binary, IMAGETESTING_nSubstractConst);
+	
+	IMAGECALCULATIONS_vBinaryImage(au8Binary);
+	
+	boResult = IMAGECALCULATIONS_boGetCentroid(au8Binary, &u8XAxis, &u8YAxis);
+	
+	IMAGETESTING_vSendCoordinates(u8XAxis, u8YAxis);
+}
+
+void IMAGETESTING_vSendCoordinates(uint8_t u8XAxis, uint8_t u8YAxis)
+{
+	uint8_t au8Header[] = {0x00, 0xFF, 0x00};
+	LOGDEBUG_vSendData(au8Header, 3);
+	LOGDEBUG_vSendData(&u8XAxis, 1);
+	LOGDEBUG_vSendData(&u8YAxis, 1);
 }

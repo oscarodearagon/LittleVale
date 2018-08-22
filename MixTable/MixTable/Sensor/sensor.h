@@ -9,13 +9,20 @@
 #ifndef SENSOR_H_
 #define SENSOR_H_
 
+#include <minigauss_cfg.h>
+
+#define SENSOR_nCOLUMNS		MINIGAUSS_nCOLUMNS
+#define SENSOR_nROWS		MINIGAUSS_nROWS
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 	void SENSOR_vInit(void);
 	
-	void SENSOR_vReadDevice(void);
+	uint8_t* SENSOR_pu8ReadDevice(void);
+	
+	void SENSOR_vSendValues(void);
 
 #ifdef __cplusplus
 }

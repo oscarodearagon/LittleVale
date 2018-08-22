@@ -71,3 +71,19 @@ class SerialCom:
         int_value = int.from_bytes(value, byteorder='big')
 
         return int_value
+
+    def read_coordinates(self):
+        result = False
+        x_axis = 0
+        y_axis = 0
+        coordinates = [0, 0]
+
+        if self.__extract_header():
+            x_axis = self.__read_integer(1)
+            y_axis = self.__read_integer(1)
+            result = True
+
+        coordinates[0] = x_axis
+        coordinates[1] = y_axis
+
+        return result, coordinates

@@ -14,7 +14,7 @@ static uint16_t IMAGEMOMENTS_u16Length = 0;
 static uint8_t IMAGEMOMENTS_u8Columns = 0;
 static uint8_t IMAGEMOMENTS_u8Rows = 0;
 
-bool boInitImageMoments(uint8_t u8Columns, uint8_t u8Rows)
+bool IMAGEMOMENTS_boInit(uint8_t u8Columns, uint8_t u8Rows)
 {
 	bool boResult = false;
 	
@@ -28,7 +28,7 @@ bool boInitImageMoments(uint8_t u8Columns, uint8_t u8Rows)
 	return boResult;
 }
 
-void vGetMoment_00(uint8_t *pu8Data, uint8_t *pu8Moment_00)
+void IMAGEMOMENTS_vGet_00(uint8_t *pu8Data, uint8_t *pu8Moment_00)
 {
 	uint8_t u8Counter = 0;
 	uint8_t u8Moment_00 = 0;
@@ -47,7 +47,7 @@ void vGetMoment_00(uint8_t *pu8Data, uint8_t *pu8Moment_00)
 	*pu8Moment_00 = u8Moment_00;
 }
 
-void vGetMoment_10(uint8_t *pu8Data, uint16_t *pu16Moment_10)
+void IMAGEMOMENTS_vGet_10(uint8_t *pu8Data, uint16_t *pu16Moment_10)
 {
 	uint8_t u8Counter = 0;
 	uint16_t u16Moment_10 = 0;
@@ -82,7 +82,7 @@ void vGetMoment_10(uint8_t *pu8Data, uint16_t *pu16Moment_10)
 	*pu16Moment_10 = u16Moment_10;
 }
 
-bool boGetMoment_01(uint8_t *pu8Data, uint16_t *pu16Moment_01)
+void IMAGEMOMENTS_vGet_01(uint8_t *pu8Data, uint16_t *pu16Moment_01)
 {
 	uint8_t u8Counter = 0;
 	uint16_t u16Moment_01 = 0;

@@ -11,6 +11,8 @@
 #define IMAGETESTING_nArrayEntries		5
 #define IMAGETESTING_nEntryLength		16
 
+#define IMAGETESTING_nSubstractConst	197
+
 static uint8_t IMAGETESTING_u8Counter = 0;
 
 static uint8_t IMAGETESTING_au8StableData[IMAGETESTING_nArrayEntries][IMAGETESTING_nEntryLength] = {
@@ -45,9 +47,17 @@ static uint8_t IMAGETESTING_au8LeftData[IMAGETESTING_nArrayEntries][IMAGETESTING
 	{0xf9, 0xcf, 0xbd, 0xb9, 0xfa, 0xf7, 0xb7, 0xb1, 0xff, 0xf7, 0xb2, 0xb7, 0xf8, 0xce, 0xb7, 0xba}
 };
 
+static uint8_t IMAGETESTING_au8MixData[IMAGETESTING_nArrayEntries][IMAGETESTING_nEntryLength] = {
+	{0xc7, 0xc6, 0xc9, 0xc6, 0xc4, 0xc3, 0xc4, 0xc3, 0xc9, 0xc6, 0xc0, 0xc6, 0xc8, 0xc5, 0xc7, 0xc6},
+	{0xc5, 0xf1, 0xf6, 0xc3, 0xfa, 0xfa, 0xf6, 0xef, 0xf7, 0xfb, 0xf6, 0xf6, 0xd1, 0xf4, 0xf8, 0xd2},
+	{0xba, 0xb9, 0xe5, 0xf7, 0xb7, 0xc1, 0xef, 0xf3, 0xbc, 0xbf, 0xeb, 0xfc, 0xba, 0xb6, 0xd0, 0xf0},
+	{0xf9, 0xcf, 0xb9, 0xb9, 0xfb, 0xf8, 0xb5, 0xb9, 0xfc, 0xf8, 0xb3, 0xb8, 0xfa, 0xcd, 0xb8, 0xba},
+	{0xba, 0xba, 0xe5, 0xf7, 0xb7, 0xc5, 0xf0, 0xf3, 0xbe, 0xbf, 0xea, 0xfa, 0xb9, 0xb6, 0xd0, 0xee}
+};
+
 uint8_t* IMAGETESTING_pu8GetDataArray(void)
 {
-	uint8_t *pu8Data = &IMAGETESTING_au8CenterData[IMAGETESTING_u8Counter][0];
+	uint8_t *pu8Data = &IMAGETESTING_au8MixData[IMAGETESTING_u8Counter][0];
 	IMAGETESTING_u8Counter++;
 	
 	if(IMAGETESTING_u8Counter >= IMAGETESTING_nArrayEntries)
@@ -76,6 +86,34 @@ void IMAGETESTING_vSubstractConstant(void)
 	
 	IMAGETESTING_vCopyArrays(pu8Data, au8Substraction, IMAGETESTING_nEntryLength);
 	
-	IMAGECALCULATIONS_vSubtractConstant(au8Substraction, 197);
+	IMAGECALCULATIONS_vSubtractConstant(au8Substraction, IMAGETESTING_nSubstractConst);
+}
+
+void IMAGETESTING_vBinaryData(void)
+{
+	uint8_t au8Binary[IMAGETESTING_nEntryLength];
+	uint8_t *pu8Data = IMAGETESTING_pu8GetDataArray();
 	
+	IMAGETESTING_vCopyArrays(pu8Data, au8Binary, IMAGETESTING_nEntryLength);
+	
+	IMAGECALCULATIONS_vSubtractConstant(au8Binary, IMAGETESTING_nSubstractConst);
+	
+	IMAGECALCULATIONS_vBinaryImage(au8Binary);
+}
+
+void IMAGETESTING_vCentroid(void)
+{
+	uint8_t au8Binary[IMAGETESTING_nEntryLength];
+	uint8_t *pu8Data = IMAGETESTING_pu8GetDataArray();
+	uint8_t u8XAxis = 0;
+	uint8_t u8YAxis = 0;
+	bool boResult = false;
+	
+	IMAGETESTING_vCopyArrays(pu8Data, au8Binary, IMAGETESTING_nEntryLength);
+	
+	IMAGECALCULATIONS_vSubtractConstant(au8Binary, IMAGETESTING_nSubstractConst);
+	
+	IMAGECALCULATIONS_vBinaryImage(au8Binary);
+	
+	boResult = IMAGECALCULATIONS_boGetCentroid(au8Binary, &u8XAxis, &u8YAxis);
 }

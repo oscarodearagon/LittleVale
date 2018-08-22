@@ -10,7 +10,7 @@ int main(void)
 	atmel_start_init();
 	
 	/* Initializations */
-	(void) IMAGECALCULATIONS_boInitImageCalculations(4 , 4);
+	(void) IMAGECALCULATIONS_boInit(4 , 4);
 	LOGDEBUG_vInit();
 	SENSOR_vInit();
 	TIMER_vInit();

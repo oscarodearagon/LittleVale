@@ -22,7 +22,10 @@ static void TIMER_0_task2_cb(const struct timer_task *const timer_task)
 {
 	//SENSOR_vReadDevice();
 	
-	IMAGETESTING_vSubstractConstant();
+	/* Image testing */
+	//IMAGETESTING_vSubstractConstant();
+	//IMAGETESTING_vBinaryData();
+	IMAGETESTING_vCentroid();
 }
 
 void TIMER_vInit(void)

@@ -15,7 +15,7 @@
 extern "C" {
 	#endif
 
-	bool IMAGECALCULATIONS_boInitImageCalculations(uint8_t u8Columns, uint8_t u8Rows);
+	bool IMAGECALCULATIONS_boInit(uint8_t u8Columns, uint8_t u8Rows);
 
 	bool IMAGECALCULATIONS_boGetCentroid(uint8_t *pu8Data, uint8_t *pu8XAxis, uint8_t *pu8YAxis);
 	

@@ -17,5 +17,8 @@ void IMAGETESTING_vCopyArrays(uint8_t *pu8Source, uint8_t *pu8Destination, uint8
 
 void IMAGETESTING_vSubstractConstant(void);
 
+void IMAGETESTING_vBinaryData(void);
+
+void IMAGETESTING_vCentroid(void);
 
 #endif /* IMAGETESTING_H_ */

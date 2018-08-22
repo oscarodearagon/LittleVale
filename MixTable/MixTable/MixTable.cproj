@@ -744,6 +744,12 @@
     <Compile Include="Image\imagemoments.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Image\imagetesting.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Image\imagetesting.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="LogDebug\logdebug.c">
       <SubType>compile</SubType>
     </Compile>

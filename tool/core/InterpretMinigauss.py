@@ -7,7 +7,7 @@ from core.resources.PlotData import PlotData
 
 # Constants
 WAIT_TIME_SECONDS = 5
-TESTING_TIME_SECONDS = 60
+TESTING_TIME_SECONDS = 1
 
 # Initializations
 serialConnection = SerialCom()

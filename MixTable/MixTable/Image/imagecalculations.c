@@ -8,19 +8,22 @@
 #include <imagecalculations.h>
 #include <imagemoments.h>
 
-static uint8_t IMAGEMOMENTS_u8DivisorMax = 0;
+static uint8_t IMAGEMOMENTS_u8DataLength = 0;
 
-bool boInitImageCalculations(uint8_t u8Columns, uint8_t u8Rows)
+static uint8_t IMAGECALCULATIONS_nThreshold = 25;
+
+bool IMAGECALCULATIONS_boInitImageCalculations(uint8_t u8Columns, uint8_t u8Rows)
 {
 	bool boResult = boInitImageMoments(u8Columns, u8Rows);
 	
-	IMAGEMOMENTS_u8DivisorMax = u8Columns * u8Rows;
+	IMAGEMOMENTS_u8DataLength = u8Columns * u8Rows;
 	
 	return boResult;
 }
 
-bool boGetCentroid(uint8_t *pu8Data, uint8_t *pu8XAxis, uint8_t *pu8YAxis)
+bool IMAGECALCULATIONS_boGetCentroid(uint8_t *pu8Data, uint8_t *pu8XAxis, uint8_t *pu8YAxis)
 {
+	uint8_t u8DivisorMax = IMAGEMOMENTS_u8DataLength;
 	uint8_t u8Moment_00 = 0;
 	uint16_t u16Moment_10 = 0;
 	uint16_t u16Moment_01 = 0;
@@ -32,9 +35,51 @@ bool boGetCentroid(uint8_t *pu8Data, uint8_t *pu8XAxis, uint8_t *pu8YAxis)
 	
 	if(u8Moment_00 != 0)
 	{
-		*pu8XAxis = (uint8_t)((u16Moment_10*IMAGEMOMENTS_u8DivisorMax) / u8Moment_00);
-		*pu8YAxis = (uint8_t)((u16Moment_01*IMAGEMOMENTS_u8DivisorMax) / u8Moment_00);
+		*pu8XAxis = (uint8_t)((u16Moment_10*u8DivisorMax) / u8Moment_00);
+		*pu8YAxis = (uint8_t)((u16Moment_01*u8DivisorMax) / u8Moment_00);
 	}
 	
 	return boResult;
+}
+
+void IMAGECALCULATIONS_vSubtractConstant(uint8_t *pu8Data, uint8_t u8Constant)
+{
+	uint8_t u8Counter = 0;
+	uint8_t u8Value = 0;
+	
+	while(u8Counter < IMAGEMOMENTS_u8DataLength)
+	{
+		u8Value = *(pu8Data+u8Counter);
+		if(u8Value > u8Constant)
+		{
+			*(pu8Data+u8Counter) = u8Value - u8Constant;
+		}
+		else
+		{
+			*(pu8Data+u8Counter) = 0;
+		}
+		
+		u8Counter++;
+	}
+}
+
+void IMAGECALCULATIONS_vBinaryImage(uint8_t *pu8Data)
+{
+	uint8_t u8Counter = 0;
+	uint8_t u8Value = 0;
+	
+	while(u8Counter < IMAGEMOMENTS_u8DataLength)
+	{
+		u8Value = *(pu8Data+u8Counter);
+		if(u8Value > IMAGECALCULATIONS_nThreshold)
+		{
+			*(pu8Data+u8Counter) = 1;
+		}
+		else
+		{
+			*(pu8Data+u8Counter) = 0;
+		}
+		
+		u8Counter++;
+	}
 }

@@ -2,6 +2,7 @@
 #include <timer.h>
 #include <sensor.h>
 #include <logdebug.h>
+#include <imagecalculations.h>
 
 int main(void)
 {
@@ -9,6 +10,7 @@ int main(void)
 	atmel_start_init();
 	
 	/* Initializations */
+	(void) IMAGECALCULATIONS_boInitImageCalculations(4 , 4);
 	LOGDEBUG_vInit();
 	SENSOR_vInit();
 	TIMER_vInit();

@@ -37,6 +37,7 @@ class SerialCom:
         if self.__extract_header():
             data = self.ser_conn.read(SerialCom.DATA_LENGTH)
             result = True
+            print(data)
 
         return result, data
 

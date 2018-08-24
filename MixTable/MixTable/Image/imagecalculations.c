@@ -10,6 +10,7 @@
 
 static uint8_t IMAGEMOMENTS_u8DataLength = 0;
 
+static uint8_t IMAGECALCULATIONS_nSubstractConst = 197;
 static uint8_t IMAGECALCULATIONS_nThreshold = 25;
 
 bool IMAGECALCULATIONS_boInit(uint8_t u8Columns, uint8_t u8Rows)
@@ -17,6 +18,19 @@ bool IMAGECALCULATIONS_boInit(uint8_t u8Columns, uint8_t u8Rows)
 	bool boResult = IMAGEMOMENTS_boInit(u8Columns, u8Rows);
 	
 	IMAGEMOMENTS_u8DataLength = u8Columns * u8Rows;
+	
+	return boResult;
+}
+
+bool IMAGECALCULATIONS_boGetCoordinates(uint8_t *pu8Data, uint8_t *pu8XAxis, uint8_t *pu8YAxis)
+{
+	bool boResult = false;
+	
+	IMAGECALCULATIONS_vSubtractConstant(pu8Data, IMAGECALCULATIONS_nSubstractConst);
+	
+	IMAGECALCULATIONS_vBinaryImage(pu8Data);
+	
+	boResult = IMAGECALCULATIONS_boGetCentroid(pu8Data, pu8XAxis, pu8YAxis);
 	
 	return boResult;
 }

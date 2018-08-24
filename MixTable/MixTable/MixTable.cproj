@@ -304,6 +304,7 @@
       <Value>../MiniGauss</Value>
       <Value>../Sensor</Value>
       <Value>../Image</Value>
+      <Value>../Application</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.level>Optimize (-O1)</armgcc.compiler.optimization.level>
@@ -372,6 +373,12 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Application\application.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Application\application.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="atmel_start.c">
       <SubType>compile</SubType>
     </Compile>
@@ -805,6 +812,7 @@
     <Folder Include="MiniGauss" />
     <Folder Include="LogDebug" />
     <Folder Include="Image" />
+    <Folder Include="Application" />
     <Folder Include="Timer" />
     <Folder Include="Sensor" />
   </ItemGroup>

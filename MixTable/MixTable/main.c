@@ -1,8 +1,6 @@
 #include <atmel_start.h>
+#include <application.h>
 #include <timer.h>
-#include <sensor.h>
-#include <logdebug.h>
-#include <imagecalculations.h>
 
 int main(void)
 {
@@ -10,9 +8,7 @@ int main(void)
 	atmel_start_init();
 	
 	/* Initializations */
-	(void) IMAGECALCULATIONS_boInit(4 , 4);
-	LOGDEBUG_vInit();
-	SENSOR_vInit();
+	APPLICATION_vInit();
 	TIMER_vInit();
 
 	/* Replace with your application code */

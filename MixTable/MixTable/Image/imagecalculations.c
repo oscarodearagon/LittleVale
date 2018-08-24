@@ -7,6 +7,7 @@
 
 #include <imagecalculations.h>
 #include <imagemoments.h>
+#include <logdebug.h>
 
 static uint8_t IMAGEMOMENTS_u8DataLength = 0;
 
@@ -26,11 +27,17 @@ bool IMAGECALCULATIONS_boGetCoordinates(uint8_t *pu8Data, uint8_t *pu8XAxis, uin
 {
 	bool boResult = false;
 	
+	LOGDEBUG_vStartMeasurement(0);
 	IMAGECALCULATIONS_vSubtractConstant(pu8Data, IMAGECALCULATIONS_nSubstractConst);
+	LOGDEBUG_vStopMeasurement(0);
 	
+	LOGDEBUG_vStartMeasurement(0);
 	IMAGECALCULATIONS_vBinaryImage(pu8Data);
+	LOGDEBUG_vStopMeasurement(0);
 	
+	LOGDEBUG_vStartMeasurement(0);
 	boResult = IMAGECALCULATIONS_boGetCentroid(pu8Data, pu8XAxis, pu8YAxis);
+	LOGDEBUG_vStopMeasurement(0);
 	
 	return boResult;
 }

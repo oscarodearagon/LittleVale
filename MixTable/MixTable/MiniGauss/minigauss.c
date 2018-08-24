@@ -44,9 +44,6 @@ void MINIGAUSS_vSaveAdcValues(uint8_t *pu8Storage)
 	{
 		MINIGAUSS_vSetGpioOutputs(u8Counter);
 		
-		/* Delay to make output stable */
-		MINIGAUSS_vDelay(100);
-		
 		/* Read ADC value */
 		MINIGAUSS_vReadAdcValues(&u8AdcValue);
 		

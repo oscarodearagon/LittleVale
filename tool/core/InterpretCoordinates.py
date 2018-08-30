@@ -18,14 +18,16 @@ print("[Main] Start Plotting")
 time_out = time.time() + TESTING_TIME_SECONDS
 while time_out > time.time():
 
+    start_time = time.time()
     # Read block
     result, position = serialConnection.read_coordinates()
 
     if result is True:
-        print(position)
+        # print(position)
         chart.plot_values(position[0], position[1])
     else:
         print("[Main] Block was not read correctly")
 
+    print((time.time()-start_time))
 # Close serial connection
 serialConnection.close()

@@ -29,3 +29,8 @@ void SENSOR_vSendValues(void)
 	LOGDEBUG_vSendData(au8Header, 3);
 	LOGDEBUG_vSendData(SENSOR_au8Values, u16Size);
 }
+
+void SENSOR_vGetDimensions(uint8_t *pu8Columns, uint8_t *pu8Rows)
+{
+	MINIGAUSS_vGetDimensions(pu8Columns, pu8Rows);
+}

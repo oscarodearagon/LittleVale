@@ -23,7 +23,7 @@ bool IMAGECALCULATIONS_boInit(uint8_t u8Columns, uint8_t u8Rows)
 	return boResult;
 }
 
-bool IMAGECALCULATIONS_boGetCoordinates(uint8_t *pu8Data, uint8_t *pu8XAxis, uint8_t *pu8YAxis)
+bool IMAGECALCULATIONS_boGetCoordinates(uint8_t *pu8Data, uint16_t *pu16XAxis, uint16_t *pu16YAxis)
 {
 	bool boResult = false;
 	
@@ -36,13 +36,13 @@ bool IMAGECALCULATIONS_boGetCoordinates(uint8_t *pu8Data, uint8_t *pu8XAxis, uin
 	LOGDEBUG_vStopMeasurement(0);
 	
 	LOGDEBUG_vStartMeasurement(0);
-	boResult = IMAGECALCULATIONS_boGetCentroid(pu8Data, pu8XAxis, pu8YAxis);
+	boResult = IMAGECALCULATIONS_boGetCentroid(pu8Data, pu16XAxis, pu16YAxis);
 	LOGDEBUG_vStopMeasurement(0);
 	
 	return boResult;
 }
 
-bool IMAGECALCULATIONS_boGetCentroid(uint8_t *pu8Data, uint8_t *pu8XAxis, uint8_t *pu8YAxis)
+bool IMAGECALCULATIONS_boGetCentroid(uint8_t *pu8Data, uint16_t *pu16XAxis, uint16_t *pu16YAxis)
 {
 	uint8_t u8DivisorMax = IMAGEMOMENTS_u8DataLength;
 	uint8_t u8Moment_00 = 0;
@@ -56,13 +56,14 @@ bool IMAGECALCULATIONS_boGetCentroid(uint8_t *pu8Data, uint8_t *pu8XAxis, uint8_
 	
 	if(u8Moment_00 != 0)
 	{
-		*pu8XAxis = (uint8_t)((u16Moment_10*u8DivisorMax) / u8Moment_00);
-		*pu8YAxis = (uint8_t)((u16Moment_01*u8DivisorMax) / u8Moment_00);
+		*pu16XAxis = (uint16_t)((u16Moment_10*u8DivisorMax) / u8Moment_00);
+		*pu16YAxis = (uint16_t)((u16Moment_01*u8DivisorMax) / u8Moment_00);
+		boResult = true;
 	}
 	else
 	{
-		*pu8XAxis = 0;
-		*pu8YAxis = 0;
+		*pu16XAxis = 0;
+		*pu16YAxis = 0;
 	}
 	
 	return boResult;

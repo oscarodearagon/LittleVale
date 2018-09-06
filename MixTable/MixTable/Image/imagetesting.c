@@ -137,10 +137,10 @@ void IMAGETESTING_vCentroidFromSensor(uint8_t *pu8Source)
 	IMAGETESTING_vSendCoordinates(u8XAxis, u8YAxis);
 }
 
-void IMAGETESTING_vSendCoordinates(uint8_t u8XAxis, uint8_t u8YAxis)
+void IMAGETESTING_vSendCoordinates(uint16_t u16XAxis, uint16_t u16YAxis)
 {
 	uint8_t au8Header[] = {0x00, 0xFF, 0x00};
 	LOGDEBUG_vSendData(au8Header, 3);
-	LOGDEBUG_vSendData(&u8XAxis, 1);
-	LOGDEBUG_vSendData(&u8YAxis, 1);
+	LOGDEBUG_vSendData(&u16XAxis, 2);
+	LOGDEBUG_vSendData(&u16YAxis, 2);
 }

@@ -43,15 +43,10 @@ void MINIGAUSS_vSaveAdcValues(uint8_t *pu8Storage)
 		/* Read ADC value */
 		MINIGAUSS_vReadAdcValues(au8AdcValues);
 		
-#if  (MINIGAUSS_stDEVICE_TYPE==Basic)
+#if MINIGAUSS_nDEVICE_TYPE == MINIGAUSS_n1x1_TYPE
 		u8MainOffset = u8Counter;
 		*(pu8Storage+u8MainOffset) = au8AdcValues[MINIGAUSS_u8ANALOG_INPUT_0];
 #else
-		
-		if( ((u8Counter+1) % MINIGAUSS_u8SENSOR_QUANTITY) == 0 )
-		{
-			u8RowOffset += MINIGAUSS_u8SENSOR_QUANTITY;
-		}
 		
 		/* Assign Values to array */
 		u8MainOffset = u8Counter + u8RowOffset;
@@ -65,7 +60,12 @@ void MINIGAUSS_vSaveAdcValues(uint8_t *pu8Storage)
 		
 		u8MainOffset = u8Counter + u8RowOffset + MINIGAUSS_u8SENSOR_QUANTITY + MINIGAUSS_u8START_INDEX_2ND;
 		*(pu8Storage+u8MainOffset) = au8AdcValues[MINIGAUSS_u8ANALOG_INPUT_3];
-#endif /* MINIGAUSS_stDEVICE_TYPE==Basic */
+		
+		if( ((u8Counter+1) % MINIGAUSS_u8SENSOR_QUANTITY) == 0 )
+		{
+			u8RowOffset += MINIGAUSS_u8SENSOR_QUANTITY;
+		}
+#endif /* MINIGAUSS_nDEVICE_TYPE == MINIGAUSS_n1x1_TYPE */
 	}
 }
 
@@ -127,4 +127,10 @@ void MINIGAUSS_vReadAdcValues(uint8_t *pu8Values)
 		
 		//LOGDEBUG_vSendData((pu8Values+u8Index), 1);
 	}
+}
+
+void MINIGAUSS_vGetDimensions(uint8_t *pu8Columns, uint8_t *pu8Rows)
+{
+	*pu8Columns = MINIGAUSS_nCOLUMNS;
+	*pu8Rows = MINIGAUSS_nROWS;
 }

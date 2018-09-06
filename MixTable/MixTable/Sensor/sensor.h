@@ -23,6 +23,8 @@ extern "C" {
 	uint8_t* SENSOR_pu8ReadDevice(void);
 	
 	void SENSOR_vSendValues(void);
+	
+	void SENSOR_vGetDimensions(uint8_t *pu8Columns, uint8_t *pu8Rows);
 
 #ifdef __cplusplus
 }

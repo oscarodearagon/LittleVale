@@ -17,9 +17,9 @@ extern "C" {
 
 	bool IMAGECALCULATIONS_boInit(uint8_t u8Columns, uint8_t u8Rows);
 	
-	bool IMAGECALCULATIONS_boGetCoordinates(uint8_t *pu8Data, uint8_t *pu8XAxis, uint8_t *pu8YAxis);
+	bool IMAGECALCULATIONS_boGetCoordinates(uint8_t *pu8Data, uint16_t *pu16XAxis, uint16_t *pu16YAxis);
 
-	bool IMAGECALCULATIONS_boGetCentroid(uint8_t *pu8Data, uint8_t *pu8XAxis, uint8_t *pu8YAxis);
+	bool IMAGECALCULATIONS_boGetCentroid(uint8_t *pu8Data, uint16_t *pu16XAxis, uint16_t *pu16YAxis);
 	
 	void IMAGECALCULATIONS_vSubtractConstant(uint8_t *pu8Data, uint8_t u8Constant);
 	

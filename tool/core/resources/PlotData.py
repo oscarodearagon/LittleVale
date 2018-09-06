@@ -7,10 +7,17 @@ class PlotData:
 
     MOMENT_00_MAX = 16
 
-    X_VALUE_MAX = 4 * 16
-    X_VALUE_MIN = 16
-    Y_VALUE_MAX = 4 * 16
-    Y_VALUE_MIN = 16
+    # 1x1 Sensor
+    # X_VALUE_MAX = 4 * 16
+    # X_VALUE_MIN = 16
+    # Y_VALUE_MAX = 4 * 16
+    # Y_VALUE_MIN = 16
+
+    # 2x2 Sensor
+    X_VALUE_MAX = 512
+    X_VALUE_MIN = 64
+    Y_VALUE_MAX = 512
+    Y_VALUE_MIN = 64
 
     POINT_TYPE = 'ro'
 

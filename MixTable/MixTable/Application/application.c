@@ -13,7 +13,12 @@
 
 void APPLICATION_vInit(void)
 {
-	(void) IMAGECALCULATIONS_boInit(4 , 4);
+	uint8_t u8Columns = 0;
+	uint8_t u8Rows = 0;
+	
+	SENSOR_vGetDimensions(&u8Columns, &u8Rows);
+	(void) IMAGECALCULATIONS_boInit(u8Columns , u8Rows);
+	
 	LOGDEBUG_vInit();
 	SENSOR_vInit();
 }
@@ -21,8 +26,8 @@ void APPLICATION_vInit(void)
 void APPLICATION_vCyclic(void)
 {
 	uint8_t *pu8Data = NULL;
-	uint8_t u8XAxis = 0;
-	uint8_t u8YAxis = 0;
+	uint16_t u16XAxis = 0;
+	uint16_t u16YAxis = 0;
 	
 	LOGDEBUG_vStartMeasurement(1);
 	
@@ -34,11 +39,11 @@ void APPLICATION_vCyclic(void)
 	//SENSOR_vSendValues();
 		
 	/* Calculate Centroid */
-	(void) IMAGECALCULATIONS_boGetCoordinates(pu8Data, &u8XAxis, &u8YAxis);
+	(void) IMAGECALCULATIONS_boGetCoordinates(pu8Data, &u16XAxis, &u16YAxis);
 	
 	/* Send values through serial port */
 	LOGDEBUG_vStartMeasurement(0);
-	IMAGETESTING_vSendCoordinates(u8XAxis, u8YAxis);
+	IMAGETESTING_vSendCoordinates(u16XAxis, u16YAxis);
 	LOGDEBUG_vStopMeasurement(0);
 	
 	LOGDEBUG_vStopMeasurement(1);

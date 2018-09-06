@@ -26,6 +26,8 @@ extern "C" {
 	void MINIGAUSS_vDelay(uint8_t u8Loops);
 	
 	void MINIGAUSS_vReadAdcValues(uint8_t *pu8Values);
+	
+	void MINIGAUSS_vGetDimensions(uint8_t *pu8Columns, uint8_t *pu8Rows);
 
 #ifdef __cplusplus
 }

@@ -68,7 +68,7 @@ class SerialCom:
 
     def __read_integer(self, number_of_bytes):
         value = self.ser_conn.read(number_of_bytes)
-        int_value = int.from_bytes(value, byteorder='big')
+        int_value = int.from_bytes(value, byteorder='little')
 
         return int_value
 
@@ -79,8 +79,8 @@ class SerialCom:
         coordinates = [0, 0]
 
         if self.__extract_header():
-            x_axis = self.__read_integer(1)
-            y_axis = self.__read_integer(1)
+            x_axis = self.__read_integer(2)
+            y_axis = self.__read_integer(2)
             result = True
 
         coordinates[0] = x_axis

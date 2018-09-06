@@ -9,11 +9,10 @@
 #include <minigauss_cfg.h>
 #include <hal_adc_sync.h>
 #include <hal_gpio.h>
+#include <hpl_adc_config.h>
 #include <logdebug.h>
 
 extern struct adc_sync_descriptor ADC_0;
-
-static uint8_t au8AdcValues[MINIGAUSS_u8INPUTS_PER_SENSOR*MINIGAUSS_u8SENSOR_QUANTITY]={0}; 
 
 void MINIGAUSS_vInit(void)
 {
@@ -123,13 +122,9 @@ void MINIGAUSS_vReadAdcValues(uint8_t *pu8Values)
 {	
 	for(uint8_t u8Index=0; MINIGAUSS_u8SENSOR_QUANTITY>u8Index; u8Index++)
 	{
-		adc_sync_enable_channel(&ADC_0, u8Index);
+		adc_sync_set_inputs(&ADC_0, u8Index, CONF_ADC_0_MUXNEG, u8Index);
 		adc_sync_read_channel(&ADC_0, u8Index, (pu8Values+u8Index), 1);
+		
 		//LOGDEBUG_vSendData((pu8Values+u8Index), 1);
-	}	
-}
-
-void MINIGAUSS_vAssignAdcValue(uint8_t *pu8AdcRead, uint8_t u8Index)
-{
-	au8AdcValues[u8Index] = *pu8AdcRead;
+	}
 }

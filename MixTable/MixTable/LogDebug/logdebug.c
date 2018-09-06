@@ -23,8 +23,7 @@ void LOGDEBUG_vInit(void)
 	/* Pins to measure time */
 	gpio_set_pin_direction(LOGDEBUG_u8DIGITAL_OUTPUT_0, GPIO_DIRECTION_OUT);
 	gpio_set_pin_direction(LOGDEBUG_u8DIGITAL_OUTPUT_1, GPIO_DIRECTION_OUT);
-	gpio_set_pin_pull_mode(LOGDEBUG_u8DIGITAL_OUTPUT_0, GPIO_PULL_UP);
-	gpio_set_pin_pull_mode(LOGDEBUG_u8DIGITAL_OUTPUT_1, GPIO_PULL_UP);
+
 	gpio_set_pin_level(LOGDEBUG_u8DIGITAL_OUTPUT_0, false);
 	gpio_set_pin_level(LOGDEBUG_u8DIGITAL_OUTPUT_1, false);
 	

@@ -12,8 +12,8 @@
 #include "atmel_start_pins.h"
 #include <utils_assert.h>
 
-#define LOGDEBUG_u8DIGITAL_OUTPUT_0		(PA27)
-#define LOGDEBUG_u8DIGITAL_OUTPUT_1		(PA06)
+#define LOGDEBUG_u8DIGITAL_OUTPUT_0		(PA30)
+#define LOGDEBUG_u8DIGITAL_OUTPUT_1		(PA31)
 
 #ifdef __cplusplus
 extern "C" {

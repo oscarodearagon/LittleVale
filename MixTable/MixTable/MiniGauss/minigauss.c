@@ -24,11 +24,6 @@ void MINIGAUSS_vInit(void)
 	gpio_set_pin_direction(MINIGAUSS_u8DIGITAL_OUTPUT_1, GPIO_DIRECTION_OUT);
 	gpio_set_pin_direction(MINIGAUSS_u8DIGITAL_OUTPUT_2, GPIO_DIRECTION_OUT);
 	gpio_set_pin_direction(MINIGAUSS_u8DIGITAL_OUTPUT_3, GPIO_DIRECTION_OUT);
-	
-	gpio_set_pin_pull_mode(MINIGAUSS_u8DIGITAL_OUTPUT_0, GPIO_PULL_UP);
-	gpio_set_pin_pull_mode(MINIGAUSS_u8DIGITAL_OUTPUT_1, GPIO_PULL_UP);
-	gpio_set_pin_pull_mode(MINIGAUSS_u8DIGITAL_OUTPUT_2, GPIO_PULL_UP);
-	gpio_set_pin_pull_mode(MINIGAUSS_u8DIGITAL_OUTPUT_3, GPIO_PULL_UP);
 }
 
 void MINIGAUSS_vReadDevice(uint8_t *pu8Storage)
@@ -38,17 +33,40 @@ void MINIGAUSS_vReadDevice(uint8_t *pu8Storage)
 
 void MINIGAUSS_vSaveAdcValues(uint8_t *pu8Storage)
 {
-	uint8_t u8AdcValue = 0;
+	uint8_t au8AdcValues[MINIGAUSS_u8SENSOR_QUANTITY] = {0};
+	uint8_t u8MainOffset = 0;
+	uint8_t u8RowOffset = 0;
 	
 	for (uint8_t u8Counter=0; MINIGAUSS_u8INPUTS_PER_SENSOR > u8Counter; u8Counter++)
 	{
 		MINIGAUSS_vSetGpioOutputs(u8Counter);
 		
 		/* Read ADC value */
-		MINIGAUSS_vReadAdcValues(&u8AdcValue);
+		MINIGAUSS_vReadAdcValues(au8AdcValues);
 		
-		/* Assign Value to array */
-		*(pu8Storage+u8Counter) = u8AdcValue;
+#if  (MINIGAUSS_stDEVICE_TYPE==Basic)
+		u8MainOffset = u8Counter;
+		*(pu8Storage+u8MainOffset) = au8AdcValues[MINIGAUSS_u8ANALOG_INPUT_0];
+#else
+		
+		if( ((u8Counter+1) % MINIGAUSS_u8SENSOR_QUANTITY) == 0 )
+		{
+			u8RowOffset += MINIGAUSS_u8SENSOR_QUANTITY;
+		}
+		
+		/* Assign Values to array */
+		u8MainOffset = u8Counter + u8RowOffset;
+		*(pu8Storage+u8MainOffset) = au8AdcValues[MINIGAUSS_u8ANALOG_INPUT_0];
+		
+		u8MainOffset = u8Counter + u8RowOffset + MINIGAUSS_u8SENSOR_QUANTITY;
+		*(pu8Storage+u8MainOffset) = au8AdcValues[MINIGAUSS_u8ANALOG_INPUT_1];
+		
+		u8MainOffset = u8Counter + u8RowOffset + MINIGAUSS_u8START_INDEX_2ND;
+		*(pu8Storage+u8MainOffset) = au8AdcValues[MINIGAUSS_u8ANALOG_INPUT_2];
+		
+		u8MainOffset = u8Counter + u8RowOffset + MINIGAUSS_u8SENSOR_QUANTITY + MINIGAUSS_u8START_INDEX_2ND;
+		*(pu8Storage+u8MainOffset) = au8AdcValues[MINIGAUSS_u8ANALOG_INPUT_3];
+#endif /* MINIGAUSS_stDEVICE_TYPE==Basic */
 	}
 }
 
@@ -102,9 +120,13 @@ void MINIGAUSS_vDelay(uint8_t u8Loops)
 }
 
 void MINIGAUSS_vReadAdcValues(uint8_t *pu8Values)
-{
-	adc_sync_read_channel(&ADC_0, MINIGAUSS_u8ANALOG_INPUT_0, pu8Values, 1);
-	//LOGDEBUG_vSendData(pu8Values, 1);
+{	
+	for(uint8_t u8Index=0; MINIGAUSS_u8SENSOR_QUANTITY>u8Index; u8Index++)
+	{
+		adc_sync_enable_channel(&ADC_0, u8Index);
+		adc_sync_read_channel(&ADC_0, u8Index, (pu8Values+u8Index), 1);
+		//LOGDEBUG_vSendData((pu8Values+u8Index), 1);
+	}	
 }
 
 void MINIGAUSS_vAssignAdcValue(uint8_t *pu8AdcRead, uint8_t u8Index)

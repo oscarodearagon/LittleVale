@@ -39,7 +39,7 @@
  *
  * \acme_license_stop
  *
- * Project: MixTable
+ * Project: SPI_010
  * Target:  ATSAMD10D14AM 
  *
  **/

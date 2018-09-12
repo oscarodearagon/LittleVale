@@ -24,6 +24,7 @@ extern "C" {
 #include <hal_adc_sync.h>
 
 #include <hal_usart_sync.h>
+#include <hal_spi_m_sync.h>
 
 #include <hal_usart_sync.h>
 #include <hal_timer.h>
@@ -31,6 +32,7 @@ extern "C" {
 extern struct adc_sync_descriptor ADC_0;
 
 extern struct usart_sync_descriptor USART_0;
+extern struct spi_m_sync_descriptor SPI_0;
 
 extern struct usart_sync_descriptor USART_1;
 extern struct timer_descriptor      TIMER_0;
@@ -42,6 +44,10 @@ void ADC_0_init(void);
 void USART_0_PORT_init(void);
 void USART_0_CLOCK_init(void);
 void USART_0_init(void);
+
+void SPI_0_PORT_init(void);
+void SPI_0_CLOCK_init(void);
+void SPI_0_init(void);
 
 void USART_1_PORT_init(void);
 void USART_1_CLOCK_init(void);

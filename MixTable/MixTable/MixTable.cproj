@@ -305,6 +305,7 @@
       <Value>../Sensor</Value>
       <Value>../Image</Value>
       <Value>../Application</Value>
+      <Value>../Tag</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.level>Optimize (-O1)</armgcc.compiler.optimization.level>
@@ -454,6 +455,9 @@
     <Compile Include="hal\include\hal_sleep.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="hal\include\hal_spi_m_sync.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="hal\include\hal_timer.h">
       <SubType>compile</SubType>
     </Compile>
@@ -517,6 +521,9 @@
     <Compile Include="hal\include\hpl_spi_async.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="hal\include\hpl_spi_dma.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="hal\include\hpl_spi_m_async.h">
       <SubType>compile</SubType>
     </Compile>
@@ -566,6 +573,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="hal\src\hal_sleep.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="hal\src\hal_spi_m_sync.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="hal\src\hal_timer.c">
@@ -781,6 +791,24 @@
     <Compile Include="Sensor\sensor.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Tag\rfid.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Tag\rfid.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Tag\spiDriver.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Tag\spiDriver.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Tag\tag.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Tag\tag.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Timer\timer.c">
       <SubType>compile</SubType>
     </Compile>
@@ -813,6 +841,7 @@
     <Folder Include="LogDebug" />
     <Folder Include="Image" />
     <Folder Include="Application" />
+    <Folder Include="Tag" />
     <Folder Include="Timer" />
     <Folder Include="Sensor" />
   </ItemGroup>

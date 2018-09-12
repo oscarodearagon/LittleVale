@@ -2752,7 +2752,7 @@ int32_t _spi_s_async_enable_rx(struct _spi_s_async_dev *dev, bool state)
 	return _spi_m_async_enable_rx(dev, state);
 }
 
-int32_t _spi_m_async_enable_ss_detect(struct _spi_async_dev *dev, bool state)
+int32_t _spi_m_async_enable_tx_complete(struct _spi_async_dev *dev, bool state)
 {
 	ASSERT(dev && dev->prvt);
 
@@ -2767,7 +2767,7 @@ int32_t _spi_m_async_enable_ss_detect(struct _spi_async_dev *dev, bool state)
 
 int32_t _spi_s_async_enable_ss_detect(struct _spi_s_async_dev *dev, bool state)
 {
-	return _spi_m_async_enable_ss_detect(dev, state);
+	return _spi_m_async_enable_tx_complete(dev, state);
 }
 
 int32_t _spi_m_async_write_one(struct _spi_async_dev *dev, uint16_t data)
@@ -2891,7 +2891,20 @@ void _spi_m_async_set_irq_state(struct _spi_async_dev *const device, const enum 
 {
 	ASSERT(device);
 
-	if (SPI_DEV_CB_COMPLETE == type) {
+	if (SPI_DEV_CB_ERROR == type) {
 		hri_sercomspi_write_INTEN_ERROR_bit(device->prvt, state);
 	}
+}
+
+/**
+ * \brief Enable/disable SPI slave interrupt
+ *
+ * param[in] device The pointer to SPI slave device instance
+ * param[in] type The type of interrupt to disable/enable if applicable
+ * param[in] state Enable or disable
+ */
+void _spi_s_async_set_irq_state(struct _spi_async_dev *const device, const enum _spi_async_dev_cb_type type,
+                                const bool state)
+{
+	_spi_m_async_set_irq_state(device, type, state);
 }

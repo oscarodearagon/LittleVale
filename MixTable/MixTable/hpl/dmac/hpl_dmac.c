@@ -196,6 +196,13 @@ int32_t _dma_get_channel_resource(struct _dma_resource **resource, const uint8_t
 	return ERR_NONE;
 }
 
+int32_t _dma_dstinc_enable(const uint8_t channel, const bool enable)
+{
+	hri_dmacdescriptor_write_BTCTRL_DSTINC_bit(&_descriptor_section[channel], enable);
+
+	return ERR_NONE;
+}
+
 /**
  * \internal DMAC interrupt handler
  */

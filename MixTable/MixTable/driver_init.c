@@ -16,7 +16,8 @@
 #include <hpl_adc_base.h>
 #include <hpl_rtc_base.h>
 
-struct timer_descriptor TIMER_0;
+struct spi_m_sync_descriptor SPI_0;
+struct timer_descriptor      TIMER_0;
 
 struct adc_sync_descriptor ADC_0;
 
@@ -26,26 +27,6 @@ struct usart_sync_descriptor USART_1;
 
 void ADC_0_PORT_init(void)
 {
-
-	// Disable digital pin circuitry
-	gpio_set_pin_direction(PA02, GPIO_DIRECTION_OFF);
-
-	gpio_set_pin_function(PA02, PINMUX_PA02B_ADC_AIN0);
-
-	// Disable digital pin circuitry
-	gpio_set_pin_direction(PA03, GPIO_DIRECTION_OFF);
-
-	gpio_set_pin_function(PA03, PINMUX_PA03B_ADC_AIN1);
-
-	// Disable digital pin circuitry
-	gpio_set_pin_direction(PA04, GPIO_DIRECTION_OFF);
-
-	gpio_set_pin_function(PA04, PINMUX_PA04B_ADC_AIN2);
-
-	// Disable digital pin circuitry
-	gpio_set_pin_direction(PA05, GPIO_DIRECTION_OFF);
-
-	gpio_set_pin_function(PA05, PINMUX_PA05B_ADC_AIN3);
 }
 
 void ADC_0_CLOCK_init(void)
@@ -80,6 +61,60 @@ void USART_0_init(void)
 	USART_0_CLOCK_init();
 	usart_sync_init(&USART_0, SERCOM0, (void *)NULL);
 	USART_0_PORT_init();
+}
+
+void SPI_0_PORT_init(void)
+{
+
+	// Set pin direction to output
+	gpio_set_pin_direction(PA22, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_level(PA22,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	gpio_set_pin_function(PA22, PINMUX_PA22C_SERCOM1_PAD0);
+
+	// Set pin direction to input
+	gpio_set_pin_direction(PA24, GPIO_DIRECTION_IN);
+
+	gpio_set_pin_pull_mode(PA24,
+	                       // <y> Pull configuration
+	                       // <id> pad_pull_config
+	                       // <GPIO_PULL_OFF"> Off
+	                       // <GPIO_PULL_UP"> Pull-up
+	                       // <GPIO_PULL_DOWN"> Pull-down
+	                       GPIO_PULL_OFF);
+
+	gpio_set_pin_function(PA24, PINMUX_PA24C_SERCOM1_PAD2);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(PA09, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_level(PA09,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	gpio_set_pin_function(PA09, PINMUX_PA09C_SERCOM1_PAD3);
+}
+
+void SPI_0_CLOCK_init(void)
+{
+	_pm_enable_bus_clock(PM_BUS_APBC, SERCOM1);
+	_gclk_enable_channel(SERCOM1_GCLK_ID_CORE, CONF_GCLK_SERCOM1_CORE_SRC);
+}
+
+void SPI_0_init(void)
+{
+	SPI_0_CLOCK_init();
+	spi_m_sync_init(&SPI_0, SERCOM1);
+	SPI_0_PORT_init();
 }
 
 void USART_1_PORT_init(void)
@@ -122,6 +157,8 @@ void system_init(void)
 	ADC_0_init();
 
 	USART_0_init();
+
+	SPI_0_init();
 
 	USART_1_init();
 

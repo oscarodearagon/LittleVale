@@ -113,6 +113,15 @@ int32_t _dma_set_source_address(const uint8_t channel, const void *const src);
 int32_t _dma_srcinc_enable(const uint8_t channel, const bool enable);
 
 /**
+ * \brief Enable/disable Destination address incrementation during DMA transaction
+ *
+ * \param[in] channel DMA channel to set destination address for
+ * \param[in] enable True to enable, false to disable
+ *
+ * \return status of operation
+ */
+int32_t _dma_dstinc_enable(const uint8_t channel, const bool enable);
+/**
  * \brief Set the amount of data to be transfered per transaction
  *
  * \param[in] channel DMA channel to set data amount for

@@ -87,3 +87,7 @@ class SerialCom:
         coordinates[1] = y_axis
 
         return result, coordinates
+
+    def read_tag_id(self):
+        tag_id = self.__read_integer(1)
+        return tag_id
